@@ -12,10 +12,10 @@ function ResponseBody() {
         value={code}
         extensions={[json()]}
         theme="dark"
-        minHeight="550px"
-        maxHeight="550px"
-        minWidth="45vw"
-        maxWidth="45vw"
+        minHeight="65vh"
+        maxHeight="65vh"
+        minWidth="47vw"
+        maxWidth="47vw"
         onChange={(value, _) => setCode(value)}
       />
     </div>
