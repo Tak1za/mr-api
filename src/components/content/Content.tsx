@@ -36,7 +36,7 @@ function Content() {
     console.log("method: ", method);
     console.log("route: ", route);
     setResponseBody("");
-    setResponseCode("");
+    let startTime = Date.now();
     fetch(route, {
       method: method,
       headers: {
@@ -46,7 +46,16 @@ function Content() {
       body: requestBody ? requestBody : null,
     })
       .then((res) => {
-        setResponseCode(`Status Code: ${res.status}`);
+        let responseTime = Date.now() - startTime;
+        let timeInSec = "";
+        if (responseTime < 1000) {
+          timeInSec = responseTime + "ms";
+        } else if (responseTime == 1000) {
+          timeInSec = "1s";
+        } else {
+          timeInSec = (responseTime / 1000).toFixed(2) + "s";
+        }
+        setResponseCode(`Status Code: ${res.status} | ${timeInSec}`);
         return res.json();
       })
       .then((data) => {
