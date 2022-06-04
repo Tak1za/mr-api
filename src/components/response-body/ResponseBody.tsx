@@ -14,8 +14,8 @@ function ResponseBody(props: IResponseBodyProps) {
         value={props.data}
         extensions={[json()]}
         theme="dark"
-        minHeight="65vh"
-        maxHeight="65vh"
+        minHeight="62vh"
+        maxHeight="62vh"
         minWidth="47vw"
         maxWidth="47vw"
         onChange={(value, _) => props.setData(value)}

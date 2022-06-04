@@ -29,6 +29,7 @@ function Content() {
   const [route, setRoute] = useState<string>("");
   const [method, setMethod] = useState<string>(allMethods[0].method);
   const [responseBody, setResponseBody] = useState<string>("");
+  const [responseCode, setResponseCode] = useState<string>("");
 
   const handleSend = () => {
     console.log("route: ", route);
@@ -37,7 +38,10 @@ function Content() {
     fetch(route, {
       method: method,
     })
-      .then((res) => res.json())
+      .then((res) => {
+        res.json();
+        setResponseCode(`Status Code: ${res.status}`);
+      })
       .then((data) => {
         setResponseBody(JSON.stringify(data, null, "\t"));
       })
@@ -56,6 +60,7 @@ function Content() {
         }
       >
         <Route route={route} setRoute={setRoute} handleSend={handleSend} />
+        <div className="status-code">{responseCode}</div>
         <div className="method-details-container">
           <RequestBody />
           <ResponseBody data={responseBody} setData={setResponseBody} />
