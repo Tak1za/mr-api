@@ -1,39 +1,19 @@
 import { Dropdown } from "primereact/dropdown";
-import { useState } from "react";
 import "./MethodDropdown.scss";
 
-const allMethods = [
-  {
-    method: "GET",
-    value: "GET",
-  },
-  {
-    method: "PUT",
-    value: "PUT",
-  },
-  {
-    method: "POST",
-    value: "POST",
-  },
-  {
-    method: "DELETE",
-    value: "DELETE",
-  },
-];
+interface IMethodDropdownProps {
+  allMethods: Array<any>;
+  method: string;
+  setMethod: React.Dispatch<React.SetStateAction<string>>;
+}
 
-export function MethodDropdown() {
-  const [method, setMethod] = useState<string>(allMethods[0].value);
-
-  const onMethodChange = (e: { value: string }) => {
-    setMethod(e.value);
-  };
-
+export function MethodDropdown(props: IMethodDropdownProps) {
   return (
     <div className="method-dropdown">
       <Dropdown
-        value={method}
-        options={allMethods}
-        onChange={onMethodChange}
+        options={props.allMethods}
+        value={props.method}
+        onChange={(e) => props.setMethod(e.target.value)}
         optionLabel="method"
       />
     </div>
