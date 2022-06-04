@@ -14,8 +14,8 @@ function RequestBody() {
         theme="dark"
         minHeight="550px"
         maxHeight="550px"
-        minWidth="48vw"
-        maxWidth="48vw"
+        minWidth="50vw"
+        maxWidth="50vw"
         onChange={(value, _) => setCode(value)}
       />
     </div>
