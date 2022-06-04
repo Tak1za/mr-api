@@ -1,0 +1,22 @@
+.content {
+  flex: 1 1 auto;
+  color: rgb(230, 230, 230);
+  margin: 0px 10px;
+
+  .p-fieldset {
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+
+    .p-fieldset-legend {
+      border: none;
+      border-radius: 10px;
+    }
+
+    .p-inputtext {
+      width: 100%;
+      border-radius: 10px;
+      padding: 12px;
+    }
+  }
+}
