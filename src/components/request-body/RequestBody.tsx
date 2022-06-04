@@ -1,21 +1,23 @@
 import "./RequestBody.scss";
-import { InputTextarea } from "primereact/inputtextarea";
 import { useState } from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { json } from "@codemirror/lang-json";
 
 function RequestBody() {
-  const [requestBody, setRequestBody] = useState("");
+  const [code, setCode] = useState("");
+
   return (
     <div className="request-body">
-      <span className="p-float-label">
-        <InputTextarea
-          value={requestBody}
-          onChange={(e) => setRequestBody(e.target.value)}
-          rows={27}
-          cols={30}
-          id="request-body"
-        />
-        <label htmlFor="request-body">Request Body</label>
-      </span>
+      <CodeMirror
+        value={code}
+        extensions={[json()]}
+        theme="dark"
+        minHeight="550px"
+        maxHeight="550px"
+        minWidth="48vw"
+        maxWidth="48vw"
+        onChange={(value, _) => setCode(value)}
+      />
     </div>
   );
 }

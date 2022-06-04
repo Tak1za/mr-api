@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@codemirror/lang-json": "^0.20.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,6 +11,7 @@
     "@types/node": "^16.11.38",
     "@types/react": "^18.0.11",
     "@types/react-dom": "^18.0.5",
+    "@uiw/react-codemirror": "^4.7.0",
     "primeicons": "^5.0.0",
     "primereact": "^8.1.1",
     "react": "^18.1.0",

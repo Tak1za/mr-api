@@ -1,5 +1,34 @@
 .request-body {
   flex: auto;
-  border-radius: 10px;
   margin-right: 5px;
+
+  .cm-theme-dark {
+    height: 100%;
+
+    .cm-editor {
+      border-radius: 10px;
+      height: 100%;
+      font-size: medium;
+
+      .cm-scroller {
+        border-radius: 10px;
+
+        .cm-gutters {
+          background-color: rgb(18, 18, 18);
+
+          .cm-activeLineGutter {
+            background-color: transparent;
+          }
+        }
+
+        .cm-content {
+          background-color: rgb(18, 18, 18);
+
+          .cm-activeLine {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
 }
