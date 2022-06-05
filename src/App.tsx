@@ -10,13 +10,19 @@ import { allRequests, IRequest } from "./models/Request";
 import { useState } from "react";
 
 function App() {
+  const [recentRequests, setRecentRequests] = useState<IRequest[]>(allRequests);
   const [currentRequest, setCurrentRequest] = useState<IRequest>(
     allRequests[0]
   );
   return (
     <div className="app">
-      <Header setRequest={setCurrentRequest} />
-      <Content currentRequest={currentRequest} />
+      <Header setRequest={setCurrentRequest} recentRequests={recentRequests} />
+      <Content
+        currentRequest={currentRequest}
+        recentRequests={recentRequests}
+        setRecentRequests={setRecentRequests}
+        setCurrentRequest={setCurrentRequest}
+      />
       <Footer />
     </div>
   );

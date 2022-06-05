@@ -2,10 +2,12 @@ import { Menubar } from "primereact/menubar";
 import { MenuItem } from "primereact/menuitem";
 import Search from "../search/Search";
 import "./Header.scss";
-import { allRequests, IRequest } from "../../models/Request";
+import { IRequest } from "../../models/Request";
+import { v4 as uuidv4 } from "uuid";
 
 interface IHeaderProps {
   setRequest: React.Dispatch<React.SetStateAction<IRequest>>;
+  recentRequests: IRequest[];
 }
 
 function Header(props: IHeaderProps) {
@@ -17,6 +19,7 @@ function Header(props: IHeaderProps) {
           label: "REST",
           command: () =>
             props.setRequest({
+              id: uuidv4(),
               title: "",
               method: "GET",
               route: "",
@@ -26,7 +29,7 @@ function Header(props: IHeaderProps) {
     },
     {
       label: "Recent",
-      items: allRequests.map((i) => ({
+      items: props.recentRequests.map((i) => ({
         label: i.title,
         command: () => props.setRequest(i),
       })),

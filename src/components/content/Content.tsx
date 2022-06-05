@@ -4,7 +4,7 @@ import { MethodDropdown } from "../method-dropdown/MethodDropdown";
 import RequestBody from "../request-body/RequestBody";
 import ResponseBody from "../response-body/ResponseBody";
 import Route from "../route/Route";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { IRequest } from "../../models/Request";
 
@@ -29,9 +29,13 @@ const allMethods = [
 
 interface IContentProps {
   currentRequest: IRequest;
+  recentRequests: IRequest[];
+  setRecentRequests: React.Dispatch<React.SetStateAction<IRequest[]>>;
+  setCurrentRequest: React.Dispatch<React.SetStateAction<IRequest>>;
 }
 
 function Content(props: IContentProps) {
+  const [id, setId] = useState<string>("");
   const [route, setRoute] = useState<string>("");
   const [method, setMethod] = useState<string>(allMethods[0].method);
   const [requestBody, setRequestBody] = useState<string>("");
@@ -40,6 +44,7 @@ function Content(props: IContentProps) {
   const [isBadRoute, setIsBadRoute] = useState<boolean>(false);
 
   useEffect(() => {
+    setId(props.currentRequest.id);
     setMethod(props.currentRequest.method);
     setRoute(props.currentRequest.route);
     setRequestBody(props.currentRequest.body ? props.currentRequest.body : "");
@@ -105,6 +110,14 @@ function Content(props: IContentProps) {
             method={method}
             setMethod={setMethod}
             requestTitle={props.currentRequest.title}
+            currentRequest={props.currentRequest}
+            recentRequests={props.recentRequests}
+            setRecentRequests={props.setRecentRequests}
+            requestBody={requestBody}
+            route={route}
+            title="new request"
+            id={id}
+            setCurrentRequest={props.setCurrentRequest}
           />
         }
       >
