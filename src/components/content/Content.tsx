@@ -5,6 +5,7 @@ import RequestBody from "../request-body/RequestBody";
 import ResponseBody from "../response-body/ResponseBody";
 import Route from "../route/Route";
 import { useState } from "react";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 const allMethods = [
   {
@@ -32,38 +33,47 @@ function Content() {
   const [responseBody, setResponseBody] = useState<string>("");
   const [responseCode, setResponseCode] = useState<string>("");
 
-  const handleSend = () => {
-    console.log("method: ", method);
-    console.log("route: ", route);
+  function timeTaken(responseTime: number): string {
+    let timeInSec = "";
+
+    if (responseTime < 1000) {
+      timeInSec = responseTime + "ms";
+    } else if (responseTime === 1000) {
+      timeInSec = "1s";
+    } else {
+      timeInSec = (responseTime / 1000).toFixed(2) + "s";
+    }
+
+    return timeInSec;
+  }
+
+  function handleSend(): void {
     setResponseBody("");
     let startTime = Date.now();
-    fetch(route, {
+
+    axios({
       method: method,
+      url: `http://localhost:8080/${route}`,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: requestBody ? requestBody : null,
     })
-      .then((res) => {
-        let responseTime = Date.now() - startTime;
-        let timeInSec = "";
-        if (responseTime < 1000) {
-          timeInSec = responseTime + "ms";
-        } else if (responseTime == 1000) {
-          timeInSec = "1s";
-        } else {
-          timeInSec = (responseTime / 1000).toFixed(2) + "s";
-        }
-        setResponseCode(`Status Code: ${res.status} | ${timeInSec}`);
-        return res.json();
+      .then((res: AxiosResponse) => {
+        setResponseCode(
+          `Status Code: ${res.status} | ${timeTaken(Date.now() - startTime)}`
+        );
+        setResponseBody(JSON.stringify(res.data, null, "\t"));
       })
-      .then((data) => {
-        console.log(data);
-        setResponseBody(JSON.stringify(data, null, "\t"));
-      })
-      .catch((err) => console.error(err));
-  };
+      .catch((err: AxiosError) => {
+        setResponseCode(
+          `Status Code: ${err.response?.status} | ${timeTaken(
+            Date.now() - startTime
+          )}`
+        );
+        setResponseBody(JSON.stringify(err.response?.data, null, "\t"));
+      });
+  }
 
   return (
     <div className="content">

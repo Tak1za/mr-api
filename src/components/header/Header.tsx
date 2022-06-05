@@ -1,4 +1,3 @@
-import { InputText } from "primereact/inputtext";
 import { Menubar } from "primereact/menubar";
 import Search from "../search/Search";
 import "./Header.scss";
