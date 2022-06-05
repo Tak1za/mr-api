@@ -1,5 +1,4 @@
 import { InputText } from "primereact/inputtext";
-import React from "react";
 import "./Search.scss";
 
 function Search() {

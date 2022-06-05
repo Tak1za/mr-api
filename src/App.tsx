@@ -6,12 +6,17 @@ import "./App.scss";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Content from "./components/content/Content";
+import { allRequests, IRequest } from "./models/Request";
+import { useState } from "react";
 
 function App() {
+  const [currentRequest, setCurrentRequest] = useState<IRequest>(
+    allRequests[0]
+  );
   return (
     <div className="app">
-      <Header />
-      <Content />
+      <Header setRequest={setCurrentRequest} />
+      <Content currentRequest={currentRequest} />
       <Footer />
     </div>
   );

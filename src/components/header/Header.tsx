@@ -1,42 +1,38 @@
 import { Menubar } from "primereact/menubar";
+import { MenuItem } from "primereact/menuitem";
 import Search from "../search/Search";
 import "./Header.scss";
+import { allRequests, IRequest } from "../../models/Request";
 
-const items = [
-  {
-    label: "New",
-    items: [
-      {
-        label: "New",
-      },
-      {
-        label: "Delete",
-      },
-      {
-        label: "Export",
-      },
-    ],
-  },
-  {
-    label: "Recent",
-    items: [
-      {
-        label: "Left",
-      },
-      {
-        label: "Right",
-      },
-      {
-        label: "Center",
-      },
-      {
-        label: "Justify",
-      },
-    ],
-  },
-];
+interface IHeaderProps {
+  setRequest: React.Dispatch<React.SetStateAction<IRequest>>;
+}
 
-function Header() {
+function Header(props: IHeaderProps) {
+  const items: MenuItem[] = [
+    {
+      label: "New",
+      items: [
+        {
+          label: "New",
+        },
+        {
+          label: "Delete",
+        },
+        {
+          label: "Export",
+        },
+      ],
+    },
+    {
+      label: "Recent",
+      items: allRequests.map((i) => ({
+        label: i.title,
+        command: () => props.setRequest(i),
+      })),
+    },
+  ];
+
   return (
     <div className="header">
       <Menubar

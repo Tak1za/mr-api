@@ -4,8 +4,9 @@ import { MethodDropdown } from "../method-dropdown/MethodDropdown";
 import RequestBody from "../request-body/RequestBody";
 import ResponseBody from "../response-body/ResponseBody";
 import Route from "../route/Route";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { IRequest } from "../../models/Request";
 
 const allMethods = [
   {
@@ -26,12 +27,25 @@ const allMethods = [
   },
 ];
 
-function Content() {
+interface IContentProps {
+  currentRequest: IRequest;
+}
+
+function Content(props: IContentProps) {
   const [route, setRoute] = useState<string>("");
   const [method, setMethod] = useState<string>(allMethods[0].method);
   const [requestBody, setRequestBody] = useState<string>("");
   const [responseBody, setResponseBody] = useState<string>("");
   const [responseCode, setResponseCode] = useState<string>("");
+
+  useEffect(() => {
+    console.log("hit");
+    setMethod(props.currentRequest.method);
+    setRoute(props.currentRequest.route);
+    setRequestBody(props.currentRequest.body ? props.currentRequest.body : "");
+    setResponseBody("");
+    setResponseCode("");
+  }, [props.currentRequest]);
 
   function timeTaken(responseTime: number): string {
     let timeInSec = "";
@@ -54,6 +68,7 @@ function Content() {
     axios({
       method: method,
       url: `http://localhost:8080/${route}`,
+      data: requestBody,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
