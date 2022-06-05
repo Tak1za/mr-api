@@ -14,13 +14,13 @@ function Header(props: IHeaderProps) {
       label: "New",
       items: [
         {
-          label: "New",
-        },
-        {
-          label: "Delete",
-        },
-        {
-          label: "Export",
+          label: "REST",
+          command: () =>
+            props.setRequest({
+              title: "",
+              method: "GET",
+              route: "",
+            }),
         },
       ],
     },

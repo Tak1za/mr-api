@@ -6,6 +6,7 @@ interface IRouteProps {
   route: string;
   setRoute: React.Dispatch<React.SetStateAction<string>>;
   handleSend: () => void;
+  isBadRoute: boolean;
 }
 
 function Route(props: IRouteProps) {
@@ -15,7 +16,9 @@ function Route(props: IRouteProps) {
         <InputText
           id="route"
           value={props.route}
-          className="p-inputtext p-component block mb-2"
+          className={`p-inputtext p-component block mb-2 ${
+            props.isBadRoute ? "error" : ""
+          }`}
           onChange={(e) => props.setRoute(e.target.value)}
         />
         <label htmlFor="route">Route</label>

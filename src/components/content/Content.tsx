@@ -37,9 +37,9 @@ function Content(props: IContentProps) {
   const [requestBody, setRequestBody] = useState<string>("");
   const [responseBody, setResponseBody] = useState<string>("");
   const [responseCode, setResponseCode] = useState<string>("");
+  const [isBadRoute, setIsBadRoute] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("hit");
     setMethod(props.currentRequest.method);
     setRoute(props.currentRequest.route);
     setRequestBody(props.currentRequest.body ? props.currentRequest.body : "");
@@ -62,6 +62,12 @@ function Content(props: IContentProps) {
   }
 
   function handleSend(): void {
+    if (route === "") {
+      setIsBadRoute(true);
+      return;
+    }
+
+    setIsBadRoute(false);
     setResponseBody("");
     let startTime = Date.now();
 
@@ -98,10 +104,16 @@ function Content(props: IContentProps) {
             allMethods={allMethods}
             method={method}
             setMethod={setMethod}
+            requestTitle={props.currentRequest.title}
           />
         }
       >
-        <Route route={route} setRoute={setRoute} handleSend={handleSend} />
+        <Route
+          route={route}
+          setRoute={setRoute}
+          handleSend={handleSend}
+          isBadRoute={isBadRoute}
+        />
         <div className="status-code">{responseCode}</div>
         <div className="method-details-container">
           <RequestBody data={requestBody} setData={setRequestBody} />

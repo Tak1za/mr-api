@@ -7,12 +7,12 @@ export interface IRequest {
 
 export const allRequests: IRequest[] = [
     {
-        title: "GET 1",
+        title: "Get inventory details",
         method: "GET",
         route: "https://petstore.swagger.io/v2/store/inventory",
     },
     {
-        title: "POST 1",
+        title: "Create a new Pet",
         method: "POST",
         route: "https://petstore.swagger.io/v2/pet",
         body: '{"id":0,"category":{"id":0,"name":"string"},"name":"doggie","photoUrls":["string"],"tags":[{"id":0,"name":"string"}],"status":"available"}',
