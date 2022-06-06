@@ -4,18 +4,18 @@ import Search from "../search/Search";
 import "./Header.scss";
 import { IRequest } from "../../models/Request";
 import { v4 as uuidv4 } from "uuid";
+import { allRequestTypes } from "../../models/RequestType";
 
 interface IHeaderProps {
   setRequest: React.Dispatch<React.SetStateAction<IRequest>>;
   recentRequests: IRequest[];
-  requestTypes: string[];
 }
 
 function Header(props: IHeaderProps) {
   const items: MenuItem[] = [
     {
       label: "New",
-      items: props.requestTypes.map((rt) => ({
+      items: allRequestTypes.map((rt) => ({
         label: rt,
         command: () =>
           props.setRequest({
@@ -40,8 +40,8 @@ function Header(props: IHeaderProps) {
     <div className="header">
       <Menubar
         model={items}
-        end={Search}
         start={<div style={{ padding: "20px" }}>Mr. API</div>}
+        end={Search}
       />
     </div>
   );

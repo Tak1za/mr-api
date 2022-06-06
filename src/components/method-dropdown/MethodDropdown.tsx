@@ -5,18 +5,17 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
 interface IMethodDropdownProps {
-  allMethods: Array<any>;
+  id: string;
+  route: string;
   method: string;
-  setMethod: React.Dispatch<React.SetStateAction<string>>;
+  requestBody: string;
+  title: string;
   requestTitle: string;
-  currentRequest: IRequest;
+  type: string;
+  allMethods: Array<any>;
+  setMethod: React.Dispatch<React.SetStateAction<string>>;
   recentRequests: IRequest[];
   setRecentRequests: React.Dispatch<React.SetStateAction<IRequest[]>>;
-  requestBody: string;
-  route: string;
-  title: string;
-  id: string;
-  type: string;
   setCurrentRequest: React.Dispatch<React.SetStateAction<IRequest>>;
 }
 

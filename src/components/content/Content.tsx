@@ -27,11 +27,25 @@ const allMethods = [
   },
 ];
 
+function timeTaken(responseTime: number): string {
+  let timeInSec = "";
+
+  if (responseTime < 1000) {
+    timeInSec = responseTime + "ms";
+  } else if (responseTime === 1000) {
+    timeInSec = "1s";
+  } else {
+    timeInSec = (responseTime / 1000).toFixed(2) + "s";
+  }
+
+  return timeInSec;
+}
+
 interface IContentProps {
   currentRequest: IRequest;
+  setCurrentRequest: React.Dispatch<React.SetStateAction<IRequest>>;
   recentRequests: IRequest[];
   setRecentRequests: React.Dispatch<React.SetStateAction<IRequest[]>>;
-  setCurrentRequest: React.Dispatch<React.SetStateAction<IRequest>>;
 }
 
 function Content(props: IContentProps) {
@@ -45,26 +59,13 @@ function Content(props: IContentProps) {
 
   useEffect(() => {
     setId(props.currentRequest.id);
-    setMethod(props.currentRequest.method);
     setRoute(props.currentRequest.route);
+    setMethod(props.currentRequest.method);
     setRequestBody(props.currentRequest.body ? props.currentRequest.body : "");
     setResponseBody("");
     setResponseCode("");
+    setIsBadRoute(false);
   }, [props.currentRequest]);
-
-  function timeTaken(responseTime: number): string {
-    let timeInSec = "";
-
-    if (responseTime < 1000) {
-      timeInSec = responseTime + "ms";
-    } else if (responseTime === 1000) {
-      timeInSec = "1s";
-    } else {
-      timeInSec = (responseTime / 1000).toFixed(2) + "s";
-    }
-
-    return timeInSec;
-  }
 
   function handleSend(): void {
     if (route === "") {
@@ -106,17 +107,17 @@ function Content(props: IContentProps) {
       <Fieldset
         legend={
           <MethodDropdown
+            id={id}
+            route={route}
             allMethods={allMethods}
+            title="new request"
             method={method}
             setMethod={setMethod}
             requestTitle={props.currentRequest.title}
-            currentRequest={props.currentRequest}
+            // currentRequest={props.currentRequest}
             recentRequests={props.recentRequests}
             setRecentRequests={props.setRecentRequests}
             requestBody={requestBody}
-            route={route}
-            title="new request"
-            id={id}
             type={props.currentRequest.type}
             setCurrentRequest={props.setCurrentRequest}
           />
