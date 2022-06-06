@@ -7,11 +7,13 @@ interface IRouteProps {
   setRoute: React.Dispatch<React.SetStateAction<string>>;
   handleSend: () => void;
   isBadRoute: boolean;
+  type: string;
 }
 
 function Route(props: IRouteProps) {
   return (
     <div className="route">
+      <div className="route-type">{props.type}</div>
       <span className="p-float-label">
         <InputText
           id="route"

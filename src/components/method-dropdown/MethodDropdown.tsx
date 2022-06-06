@@ -16,6 +16,7 @@ interface IMethodDropdownProps {
   route: string;
   title: string;
   id: string;
+  type: string;
   setCurrentRequest: React.Dispatch<React.SetStateAction<IRequest>>;
 }
 
@@ -25,6 +26,7 @@ export function MethodDropdown(props: IMethodDropdownProps) {
       ...res,
       {
         id: props.id,
+        type: props.type,
         title: props.title,
         method: props.method,
         route: props.route,
@@ -41,6 +43,7 @@ export function MethodDropdown(props: IMethodDropdownProps) {
     props.setCurrentRequest({
       id: uuidv4(),
       title: "",
+      type: "REST",
       method: "GET",
       route: "",
     });

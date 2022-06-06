@@ -8,24 +8,24 @@ import { v4 as uuidv4 } from "uuid";
 interface IHeaderProps {
   setRequest: React.Dispatch<React.SetStateAction<IRequest>>;
   recentRequests: IRequest[];
+  requestTypes: string[];
 }
 
 function Header(props: IHeaderProps) {
   const items: MenuItem[] = [
     {
       label: "New",
-      items: [
-        {
-          label: "REST",
-          command: () =>
-            props.setRequest({
-              id: uuidv4(),
-              title: "",
-              method: "GET",
-              route: "",
-            }),
-        },
-      ],
+      items: props.requestTypes.map((rt) => ({
+        label: rt,
+        command: () =>
+          props.setRequest({
+            id: uuidv4(),
+            type: rt,
+            title: "",
+            method: "GET",
+            route: "",
+          }),
+      })),
     },
     {
       label: "Recent",

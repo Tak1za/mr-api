@@ -1,5 +1,6 @@
 export interface IRequest {
     id: string;
+    type: string;
     title: string;
     method: string;
     route: string;
@@ -9,6 +10,7 @@ export interface IRequest {
 export const allRequests: IRequest[] = [
     {
         id: "b0316461-2dee-4ce9-8272-994d56ba2833",
+        type: "REST",
         title: "Get inventory details",
         method: "GET",
         route: "https://petstore.swagger.io/v2/store/inventory",

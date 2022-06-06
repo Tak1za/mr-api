@@ -117,6 +117,7 @@ function Content(props: IContentProps) {
             route={route}
             title="new request"
             id={id}
+            type={props.currentRequest.type}
             setCurrentRequest={props.setCurrentRequest}
           />
         }
@@ -126,6 +127,7 @@ function Content(props: IContentProps) {
           setRoute={setRoute}
           handleSend={handleSend}
           isBadRoute={isBadRoute}
+          type={props.currentRequest.type}
         />
         <div className="status-code">{responseCode}</div>
         <div className="method-details-container">
