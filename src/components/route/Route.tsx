@@ -1,6 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import "./Route.scss";
+import RequestTypeDropdown from "../request-type-dropdown/RequestTypeDropdown";
 
 interface IRouteProps {
   route: string;
@@ -8,12 +9,13 @@ interface IRouteProps {
   handleSend: () => void;
   isBadRoute: boolean;
   type: string;
+  setType: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function Route(props: IRouteProps) {
   return (
     <div className="route">
-      <div className="route-type">{props.type}</div>
+      <RequestTypeDropdown currentType={props.type} setCurrentType={props.setType}/>
       <span className="p-float-label">
         <InputText
           id="route"

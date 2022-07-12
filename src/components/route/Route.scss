@@ -5,7 +5,7 @@
   padding: 5px;
 
   .route {
-    display: inline-flex;
+    display: flex;
     align-items: center;
 
     .route-type {
@@ -13,7 +13,7 @@
     }
 
     .p-float-label {
-      flex: 0 0 90%;
+      flex: 10;
     }
 
     .p-inputtext {
@@ -31,7 +31,6 @@
       flex: 1;
       height: 40px;
       border-radius: 10px;
-      padding: 5px;
     }
   }
 }

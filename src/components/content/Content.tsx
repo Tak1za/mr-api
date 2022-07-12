@@ -7,25 +7,8 @@ import Route from "../route/Route";
 import React, { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { IRequest } from "../../models/Request";
-
-const allMethods = [
-  {
-    method: "GET",
-    value: "GET",
-  },
-  {
-    method: "PUT",
-    value: "PUT",
-  },
-  {
-    method: "POST",
-    value: "POST",
-  },
-  {
-    method: "DELETE",
-    value: "DELETE",
-  },
-];
+import { allRequestTypes } from "../../models/RequestType";
+import { allMethods } from "../../models/Method";
 
 function timeTaken(responseTime: number): string {
   let timeInSec = "";
@@ -52,6 +35,7 @@ function Content(props: IContentProps) {
   const [id, setId] = useState<string>("");
   const [route, setRoute] = useState<string>("");
   const [method, setMethod] = useState<string>(allMethods[0].method);
+  const [requestType, setRequestType] = useState<string>(allRequestTypes[0].method);
   const [requestBody, setRequestBody] = useState<string>("");
   const [responseBody, setResponseBody] = useState<string>("");
   const [responseCode, setResponseCode] = useState<string>("");
@@ -61,6 +45,7 @@ function Content(props: IContentProps) {
     setId(props.currentRequest.id);
     setRoute(props.currentRequest.route);
     setMethod(props.currentRequest.method);
+    setRequestType(props.currentRequest.type);
     setRequestBody(props.currentRequest.body ? props.currentRequest.body : "");
     setResponseBody("");
     setResponseCode("");
@@ -114,11 +99,10 @@ function Content(props: IContentProps) {
             method={method}
             setMethod={setMethod}
             requestTitle={props.currentRequest.title}
-            // currentRequest={props.currentRequest}
             recentRequests={props.recentRequests}
             setRecentRequests={props.setRecentRequests}
             requestBody={requestBody}
-            type={props.currentRequest.type}
+            type={requestType}
             setCurrentRequest={props.setCurrentRequest}
           />
         }
@@ -128,7 +112,8 @@ function Content(props: IContentProps) {
           setRoute={setRoute}
           handleSend={handleSend}
           isBadRoute={isBadRoute}
-          type={props.currentRequest.type}
+          type={requestType}
+          setType={setRequestType}
         />
         <div className="status-code">{responseCode}</div>
         <div className="method-details-container">

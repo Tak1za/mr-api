@@ -16,11 +16,11 @@ function Header(props: IHeaderProps) {
     {
       label: "New",
       items: allRequestTypes.map((rt) => ({
-        label: rt,
+        label: rt.value,
         command: () =>
           props.setRequest({
             id: uuidv4(),
-            type: rt,
+            type: rt.value,
             title: "",
             method: "GET",
             route: "",
