@@ -1,11 +1,7 @@
 import "./RequestBody.scss";
 import CodeMirror from "@uiw/react-codemirror";
 import { json } from "@codemirror/lang-json";
-
-interface IRequestBodyProps {
-  data: any;
-  setData: React.Dispatch<React.SetStateAction<string>>;
-}
+import { IRequestBodyProps } from "./IRequestBodyProps";
 
 function RequestBody(props: IRequestBodyProps) {
   return (

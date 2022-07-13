@@ -1,11 +1,7 @@
 import { Dropdown } from "primereact/dropdown";
 import { allRequestTypes } from "../../models/RequestType";
+import { IRequestTypeDropdown } from "./IRequestTypeDropdown";
 import './RequestTypeDropdown.scss';
-
-interface IRequestTypeDropdown {
-  currentType: string;
-  setCurrentType: React.Dispatch<React.SetStateAction<string>>;
-}
 
 function RequestTypeDropdown(props: IRequestTypeDropdown) {
   return (

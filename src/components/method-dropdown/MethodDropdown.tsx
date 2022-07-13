@@ -1,23 +1,7 @@
 import { Dropdown } from "primereact/dropdown";
 import "./MethodDropdown.scss";
-import { IRequest } from "../../models/Request";
-import React from "react";
 import { v4 as uuidv4 } from "uuid";
-
-interface IMethodDropdownProps {
-  id: string;
-  route: string;
-  method: string;
-  requestBody: string;
-  title: string;
-  requestTitle: string;
-  type: string;
-  allMethods: Array<any>;
-  setMethod: React.Dispatch<React.SetStateAction<string>>;
-  recentRequests: IRequest[];
-  setRecentRequests: React.Dispatch<React.SetStateAction<IRequest[]>>;
-  setCurrentRequest: React.Dispatch<React.SetStateAction<IRequest>>;
-}
+import { IMethodDropdownProps } from "./IMethodDropdownProps";
 
 export function MethodDropdown(props: IMethodDropdownProps) {
   const handleSave = () => {

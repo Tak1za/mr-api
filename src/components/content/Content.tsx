@@ -4,11 +4,11 @@ import { MethodDropdown } from "../method-dropdown/MethodDropdown";
 import RequestBody from "../request-body/RequestBody";
 import ResponseBody from "../response-body/ResponseBody";
 import Route from "../route/Route";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { IRequest } from "../../models/Request";
 import { allRequestTypes } from "../../models/RequestType";
 import { allMethods } from "../../models/Method";
+import { IContentProps } from "./IContentProps";
 
 function timeTaken(responseTime: number): string {
   let timeInSec = "";
@@ -22,13 +22,6 @@ function timeTaken(responseTime: number): string {
   }
 
   return timeInSec;
-}
-
-interface IContentProps {
-  currentRequest: IRequest;
-  setCurrentRequest: React.Dispatch<React.SetStateAction<IRequest>>;
-  recentRequests: IRequest[];
-  setRecentRequests: React.Dispatch<React.SetStateAction<IRequest[]>>;
 }
 
 function Content(props: IContentProps) {

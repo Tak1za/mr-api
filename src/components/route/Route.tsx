@@ -2,15 +2,7 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import "./Route.scss";
 import RequestTypeDropdown from "../request-type-dropdown/RequestTypeDropdown";
-
-interface IRouteProps {
-  route: string;
-  setRoute: React.Dispatch<React.SetStateAction<string>>;
-  handleSend: () => void;
-  isBadRoute: boolean;
-  type: string;
-  setType: React.Dispatch<React.SetStateAction<string>>;
-}
+import { IRouteProps } from "./IRouteProps";
 
 function Route(props: IRouteProps) {
   return (

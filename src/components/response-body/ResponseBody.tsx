@@ -1,11 +1,7 @@
 import "./ResponseBody.scss";
 import CodeMirror from "@uiw/react-codemirror";
 import { json } from "@codemirror/lang-json";
-
-interface IResponseBodyProps {
-  data: any;
-  setData: React.Dispatch<React.SetStateAction<string>>;
-}
+import { IResponseBodyProps } from "./IResponseBodyProps";
 
 function ResponseBody(props: IResponseBodyProps) {
   return (
