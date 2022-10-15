@@ -1,0 +1,52 @@
+.sidebar {
+  overflow: auto;
+
+  ul {
+    height: calc(100vh - 58px);
+    border-color: rgb(238, 234, 234);
+    width: 250px;
+
+    .ant-menu-submenu {
+      ul {
+        height: 100%;
+        overflow: auto;
+      }
+    }
+
+    .ant-menu-submenu-title:hover {
+      color: black;
+    }
+
+    .ant-menu-submenu-selected {
+      color: black;
+    }
+
+    .ant-menu-submenu:hover {
+      .ant-menu-submenu-title {
+        .ant-menu-submenu-arrow {
+          color: black;
+        }
+      }
+    }
+
+    .ant-menu-item {
+      border-radius: 10px;
+      width: 92%;
+      margin-left: 10px;
+    }
+
+    .ant-menu-item::after {
+      border: none !important;
+    }
+
+    .ant-menu-item:hover {
+      color: inherit;
+    }
+
+    .ant-menu-item-selected {
+      background-color: rgb(235, 235, 235) !important;
+      border: none !important;
+      color: inherit;
+    }
+  }
+}

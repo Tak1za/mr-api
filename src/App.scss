@@ -1,0 +1,79 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import "~antd/dist/antd.css";
+body {
+  position: relative;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  font-family: sans-serif;
+  overflow-y: hidden;
+  display: flex;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  height: fit-content;
+  width: fit-content;
+  margin: 10px;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+
+  .main-top {
+    height: calc(100% - 30px);
+    display: flex;
+    flex-direction: row;
+
+    .main-left {
+      .title {
+        height: 30px !important;
+        background-color: rgb(30, 34, 39);
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+    }
+
+    .main-right {
+      flex-grow: 1;
+    }
+  }
+
+  .main-bottom {
+    height: 30px;
+    border-style: solid;
+    border-top-width: 1px;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-color: rgb(238, 234, 234);
+
+    .ant-input-affix-wrapper {
+      width: 250px;
+      border-right: solid;
+      border-color: rgb(238, 234, 234);
+      border-width: 1px;
+    }
+
+    .ant-input-affix-wrapper-focused {
+      box-shadow: none !important;
+    }
+  }
+}

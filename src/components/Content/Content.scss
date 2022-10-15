@@ -1,0 +1,105 @@
+.content {
+  color: black;
+  width: calc(100vw - 250px);
+
+  .ant-tabs {
+    .ant-tabs-nav {
+      height: 30px;
+      margin-bottom: 0;
+
+      .ant-tabs-nav-wrap {
+        background-color: rgb(30, 34, 39);
+
+        .ant-tabs-nav-list {
+          background-color: rgb(30, 34, 39);
+
+          .addMoreIcon {
+            display: inline-flex;
+            align-items: center;
+
+            span {
+              color: grey;
+            }
+
+            .anticon.anticon-plus {
+              color: grey;
+              margin-left: 2px;
+            }
+          }
+
+          .addMoreIcon:hover {
+            span {
+              color: white;
+            }
+
+            .anticon.anticon-plus {
+              color: white;
+            }
+          }
+
+          .ant-tabs-tab.ant-tabs-tab-active {
+            background-color: rgb(50, 54, 59);
+            border-color: rgb(50, 54, 59);
+
+            .ant-tabs-tab-btn {
+              color: white;
+            }
+
+            .ant-tabs-tab-remove {
+              color: white;
+            }
+          }
+
+          .ant-tabs-tab {
+            background-color: rgb(30, 34, 39);
+            border-color: rgb(30, 34, 39);
+
+            .ant-tabs-tab-btn {
+              color: grey;
+            }
+
+            .ant-tabs-tab-remove {
+              color: grey;
+            }
+          }
+
+          .ant-tabs-nav-add {
+            background-color: rgb(30, 34, 39);
+            border-color: rgb(30, 34, 39);
+            margin-left: 0px;
+
+            .anticon.anticon-plus {
+              color: grey;
+            }
+          }
+        }
+      }
+
+      .ant-tabs-nav-operations {
+        background-color: rgb(30, 34, 39);
+
+        .ant-tabs-nav-more {
+          color: grey;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .ant-tabs-nav-add {
+          background-color: rgb(30, 34, 39);
+          border: none !important;
+          color: grey;
+        }
+      }
+    }
+
+    .ant-tabs-content-holder {
+      padding: 10px;
+    }
+  }
+}
+
+.request-response-container {
+  display: flex;
+  flex-direction: row;
+}
