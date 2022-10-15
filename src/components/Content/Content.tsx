@@ -1,15 +1,14 @@
-import { Tabs } from 'antd';
-import { useRef, useState } from 'react';
-import './Content.scss';
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
-import { Tab } from 'rc-tabs/lib/interface';
-import Request from '../Request/Request';
-import Response from '../Response/Response';
+import "./Content.scss";
+import { Tabs } from "antd";
+import { useRef, useState } from "react";
+import { DownOutlined, PlusOutlined } from "@ant-design/icons";
+import { Tab } from "rc-tabs/lib/interface";
+import RequestResponse from "../RequestResponse/RequestResponse";
 
 const initialItems: Tab[] = [];
 
 const Content = () => {
-  const [activeKey, setActiveKey] = useState('');
+  const [activeKey, setActiveKey] = useState("");
   const [items, setItems] = useState(initialItems);
   const newTabIndex = useRef(0);
 
@@ -18,17 +17,11 @@ const Content = () => {
   };
 
   const add = () => {
-    // eslint-disable-next-line no-plusplus
     const newActiveKey = `newTab${newTabIndex.current++}`;
     const newPanes = [...items];
     newPanes.push({
-      label: 'New',
-      children: (
-        <div className="request-response-container">
-          <Request />
-          <Response />
-        </div>
-      ),
+      label: "New",
+      children: <RequestResponse />,
       key: newActiveKey,
     });
     setItems(newPanes);
@@ -57,9 +50,9 @@ const Content = () => {
 
   const onEdit = (
     targetKey: React.MouseEvent | React.KeyboardEvent | string,
-    action: 'add' | 'remove'
+    action: "add" | "remove"
   ) => {
-    if (action === 'add') {
+    if (action === "add") {
       add();
     } else {
       remove(targetKey.toString());

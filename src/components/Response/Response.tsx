@@ -1,22 +1,21 @@
-import ReactAce from 'react-ace/lib/ace';
-import './Response.scss';
+import "./Response.scss";
+import ReactAce from "react-ace/lib/ace";
 
-const Response = () => {
-  const onJsonChange = (newValue: string) => {
-    // eslint-disable-next-line no-console
-    console.log('change: ', newValue);
-  };
+interface IResponseProps {
+  responseBody: any;
+  responseStatus: string;
+}
 
+const Response = ({ responseBody, responseStatus }: IResponseProps) => {
   return (
     <div className="response-editor-container">
       <div className="header">
         <span>Response</span>
-        <div role="presentation">Response Code</div>
+        <div role="presentation">{responseStatus}</div>
       </div>
       <ReactAce
         mode="json"
         theme="tomorrow"
-        onChange={onJsonChange}
         name="unique1"
         setOptions={{
           useWorker: false,
@@ -27,6 +26,7 @@ const Response = () => {
         enableBasicAutocompletion
         enableLiveAutocompletion
         readOnly
+        value={JSON.stringify(responseBody, null, 4)}
       />
     </div>
   );

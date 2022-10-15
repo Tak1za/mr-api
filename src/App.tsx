@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./App.scss";
 import { Input } from "antd";
 import {
@@ -7,26 +6,10 @@ import {
   PieChartOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import "./App.scss";
 import Sidebar, { MenuItem } from "./components/Sidebar/Sidebar";
 import Content from "./components/Content/Content";
 
 function App() {
-  useEffect(() => {
-    fetch("http://localhost:3001/get", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        url: "https://jsonplaceholder.typicode.com/todos/1",
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
-  }, []);
-
   function getItem(
     label: React.ReactNode,
     key: React.Key,

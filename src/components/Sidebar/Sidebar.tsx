@@ -1,7 +1,7 @@
-import { Menu, MenuProps } from 'antd';
-import './Sidebar.scss';
+import "./Sidebar.scss";
+import { Menu, MenuProps } from "antd";
 
-export type MenuItem = Required<MenuProps>['items'][number];
+export type MenuItem = Required<MenuProps>["items"][number];
 
 interface ISidebarProps {
   items: MenuItem[];
