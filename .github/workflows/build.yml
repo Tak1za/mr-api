@@ -28,4 +28,4 @@ jobs:
           npm install
       - name: npm electron-build
         run: |
-          npm electron-build
+          npm run electron-build
