@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { DownOutlined, PlusOutlined } from "@ant-design/icons";
 import { Tab } from "rc-tabs/lib/interface";
 import RequestResponse from "../RequestResponse/RequestResponse";
+import RequestLabel from "../RequestLabel/RequestLabel";
 
 const initialItems: Tab[] = [];
 
@@ -20,7 +21,7 @@ const Content = () => {
     const newActiveKey = `newTab${newTabIndex.current++}`;
     const newPanes = [...items];
     newPanes.push({
-      label: "New",
+      label: <RequestLabel />,
       children: <RequestResponse />,
       key: newActiveKey,
     });
@@ -61,7 +62,7 @@ const Content = () => {
 
   const addMoreIcon = (
     <div className="addMoreIcon">
-      <span>New Request</span>
+      <span>Add Request</span>
       <PlusOutlined />
     </div>
   );
