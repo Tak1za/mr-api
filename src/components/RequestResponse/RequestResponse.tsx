@@ -2,23 +2,44 @@ import "./RequestResponse.scss";
 import Request from "../Request/Request";
 import Response from "../Response/Response";
 import axios from "axios";
-import { useState } from "react";
 import { Button, Input, Select } from "antd";
 import { SendOutlined } from "@ant-design/icons";
+import {
+  resetResponse,
+  setIsLoading,
+  setResponseBody,
+  setResponseStatus,
+} from "../../store/features/Response/responseSlice";
+import {
+  resetRequest,
+  setProtocol,
+  setRequestType,
+  setUrl,
+} from "../../store/features/Request/requestSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store/store";
+import { useEffect } from "react";
 
 const RequestResponse = () => {
-  const [protocol, setProtocol] = useState<string>("http://");
-  const [url, setUrl] = useState<string>("");
-  const [responseBody, setResponseBody] = useState<any>(undefined);
-  const [responseStatus, setResponseStatus] = useState<string>("");
-  const [requestType, setRequestType] = useState<string>("get");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [requestBody, setRequestBody] = useState<any>(undefined);
-
   const { Option } = Select;
+  const dispatch = useDispatch();
+  const protocol = useSelector((state: RootState) => state.request.protocol);
+  const url = useSelector((state: RootState) => state.request.url);
+  const requestType = useSelector(
+    (state: RootState) => state.request.requestType
+  );
+  const requestBody = useSelector(
+    (state: RootState) => state.request.requestBody
+  );
+  const isLoading = useSelector((state: RootState) => state.response.isLoading);
+
+  useEffect(() => {
+    dispatch(resetRequest());
+    dispatch(resetResponse());
+  }, [dispatch]);
 
   const sendRequest = () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
 
     let bodyToSend: any = {};
     let urlAndHeaders: any = {};
@@ -58,22 +79,24 @@ const RequestResponse = () => {
         },
       })
       .then((res) => {
-        setResponseBody(res.data);
-        setResponseStatus(res.status + " " + res.statusText);
+        dispatch(setResponseBody(res.data));
+        dispatch(setResponseStatus(res.status + " " + res.statusText));
       })
       .catch((err) => {
         console.error(err);
         if (err.response.data.stdErr) {
-          setResponseBody(null);
-          setResponseStatus(err.response.data.stdErr);
+          dispatch(setResponseBody(null));
+          dispatch(setResponseStatus(err.response.data.stdErr));
         } else {
-          setResponseBody(err.response.data.apiErr);
-          setResponseStatus(
-            err.response.status + " " + err.response.statusText
+          dispatch(setResponseBody(err.response.data.apiErr));
+          dispatch(
+            setResponseStatus(
+              err.response.status + " " + err.response.statusText
+            )
           );
         }
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   const selectBefore = (
@@ -81,7 +104,7 @@ const RequestResponse = () => {
       defaultValue="http://"
       className="select-before"
       value={protocol}
-      onChange={(p: string) => setProtocol(p)}
+      onChange={(p: string) => dispatch(setProtocol(p))}
     >
       <Option value="http://">http://</Option>
       <Option value="https://">https://</Option>
@@ -94,12 +117,16 @@ const RequestResponse = () => {
       if (clipboardData.startsWith("http")) {
         switch (clipboardData.substring(0, clipboardData.indexOf("://"))) {
           case "https":
-            setProtocol("https://");
-            setUrl(clipboardData.substring(clipboardData.indexOf("://") + 3));
+            dispatch(setProtocol("https://"));
+            dispatch(
+              setUrl(clipboardData.substring(clipboardData.indexOf("://") + 3))
+            );
             break;
           case "http":
-            setProtocol("http://");
-            setUrl(clipboardData.substring(clipboardData.indexOf("://") + 3));
+            dispatch(setProtocol("http://"));
+            dispatch(
+              setUrl(clipboardData.substring(clipboardData.indexOf("://") + 3))
+            );
             break;
           default:
             break;
@@ -120,7 +147,7 @@ const RequestResponse = () => {
       <Input.Group compact style={{ display: "flex" }}>
         <Select
           defaultValue="get"
-          onChange={(value: string) => setRequestType(value)}
+          onChange={(value: string) => dispatch(setRequestType(value))}
           value={requestType}
           style={{ width: "100px" }}
         >
@@ -134,7 +161,8 @@ const RequestResponse = () => {
           onPaste={onPaste}
           onCopy={onCopy}
           value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={(e) => dispatch(setUrl(e.target.value))}
+          autoFocus
         />
         <Button
           type="primary"
@@ -154,8 +182,8 @@ const RequestResponse = () => {
           height: "calc(100vh - 500px)",
         }}
       >
-        <Request requestBody={requestBody} setRequestBody={setRequestBody} />
-        <Response responseBody={responseBody} responseStatus={responseStatus} />
+        <Request />
+        <Response />
       </div>
     </div>
   );

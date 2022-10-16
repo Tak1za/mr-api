@@ -1,19 +1,22 @@
 import "./Request.scss";
 import ReactAce from "react-ace/lib/ace";
 import beautify from "ace-builds/src-noconflict/ext-beautify";
-import React, { useRef } from "react";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setRequestBody } from "../../store/features/Request/requestSlice";
+import { RootState } from "../../store/store";
 
-interface IRequestProps {
-  requestBody: any;
-  setRequestBody: React.Dispatch<React.SetStateAction<any>>;
-}
-
-const Request = ({ requestBody, setRequestBody }: IRequestProps) => {
+const Request = () => {
   const editorRef = useRef<any>();
 
   const prettify = () => {
     beautify.beautify(editorRef.current.editor.session);
   };
+
+  const dispatch = useDispatch();
+  const requestBody = useSelector(
+    (state: RootState) => state.request.requestBody
+  );
 
   return (
     <div className="request-editor-container">
@@ -37,7 +40,7 @@ const Request = ({ requestBody, setRequestBody }: IRequestProps) => {
         enableBasicAutocompletion
         enableLiveAutocompletion
         value={requestBody}
-        onChange={(value) => setRequestBody(value)}
+        onChange={(value) => dispatch(setRequestBody(value))}
         wrapEnabled
         commands={beautify.commands}
       />

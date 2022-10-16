@@ -1,12 +1,15 @@
 import "./Response.scss";
 import ReactAce from "react-ace/lib/ace";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
-interface IResponseProps {
-  responseBody: any;
-  responseStatus: string;
-}
-
-const Response = ({ responseBody, responseStatus }: IResponseProps) => {
+const Response = () => {
+  const responseStatus = useSelector(
+    (state: RootState) => state.response.responseStatus
+  );
+  const responseBody = useSelector(
+    (state: RootState) => state.response.responseBody
+  );
   return (
     <div className="response-editor-container">
       <div className="header">
