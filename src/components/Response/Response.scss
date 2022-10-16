@@ -1,5 +1,5 @@
 .response-editor-container {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 115px);
   width: calc(100vw - 270px);
   margin-left: 5px;
   display: flex;
@@ -10,11 +10,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-top: -5px;
   }
 
   .response-editor {
-    height: 100% !important;
+    height: calc(100vh - 115px) !important;
     width: 100% !important;
     border-style: solid;
     border-width: 1px;

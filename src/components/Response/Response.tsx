@@ -16,17 +16,15 @@ const Response = ({ responseBody, responseStatus }: IResponseProps) => {
       <ReactAce
         mode="json"
         theme="tomorrow"
-        name="unique1"
+        name="unique-response"
         setOptions={{
           useWorker: false,
         }}
         className="response-editor"
         showPrintMargin={false}
-        highlightActiveLine={false}
-        enableBasicAutocompletion
-        enableLiveAutocompletion
         readOnly
         value={JSON.stringify(responseBody, null, 4)}
+        wrapEnabled
       />
     </div>
   );

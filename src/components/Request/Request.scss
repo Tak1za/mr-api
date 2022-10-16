@@ -1,5 +1,5 @@
 .request-editor-container {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 115px);
   width: calc(100vw - 270px);
   margin-right: 5px;
   display: flex;
@@ -18,7 +18,7 @@
   }
 
   .request-editor {
-    height: 100% !important;
+    height: calc(100vh - 115px) !important;
     width: 100% !important;
     border-style: solid;
     border-width: 1px;
