@@ -62,8 +62,16 @@ const RequestResponse = () => {
         setResponseStatus(res.status + " " + res.statusText);
       })
       .catch((err) => {
-        setResponseBody(err.response.data.message);
-        setResponseStatus(err.response.status + " " + err.response.statusText);
+        console.error(err);
+        if (err.response.data.stdErr) {
+          setResponseBody(null);
+          setResponseStatus(err.response.data.stdErr);
+        } else {
+          setResponseBody(err.response.data.apiErr);
+          setResponseStatus(
+            err.response.status + " " + err.response.statusText
+          );
+        }
       })
       .finally(() => setIsLoading(false));
   };
@@ -80,27 +88,30 @@ const RequestResponse = () => {
     </Select>
   );
 
-  const onPaste = (e: React.ClipboardEvent) => {
-    const { clipboardData } = e;
-    if (clipboardData.getData("text") !== "") {
-      const potentialURL = clipboardData.getData("text");
-      if (potentialURL.startsWith("http")) {
-        switch (potentialURL.substring(0, potentialURL.indexOf("://"))) {
+  const onPaste = async () => {
+    let clipboardData = await navigator.clipboard.readText();
+    if (clipboardData !== "") {
+      if (clipboardData.startsWith("http")) {
+        switch (clipboardData.substring(0, clipboardData.indexOf("://"))) {
           case "https":
             setProtocol("https://");
-            setUrl(potentialURL.substring(potentialURL.indexOf("://") + 3));
-            e.preventDefault();
+            setUrl(clipboardData.substring(clipboardData.indexOf("://") + 3));
             break;
           case "http":
             setProtocol("http://");
-            setUrl(potentialURL.substring(potentialURL.indexOf("://") + 3));
-            e.preventDefault();
+            setUrl(clipboardData.substring(clipboardData.indexOf("://") + 3));
             break;
           default:
-            e.preventDefault();
             break;
         }
       }
+    }
+  };
+
+  const onCopy = async () => {
+    let clipboardData = await navigator.clipboard.readText();
+    if (clipboardData === url) {
+      await navigator.clipboard.writeText(protocol + url);
     }
   };
 
@@ -121,6 +132,7 @@ const RequestResponse = () => {
         <Input
           addonBefore={selectBefore}
           onPaste={onPaste}
+          onCopy={onCopy}
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
