@@ -11,7 +11,6 @@ const RequestLabel = () => {
         value={label}
         onChange={(e) => setLabel(e.target.value)}
         autoFocus
-        style={{ width: "100px" }}
       />
     </div>
   );
