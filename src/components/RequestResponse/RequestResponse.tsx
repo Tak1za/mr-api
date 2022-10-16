@@ -11,25 +11,52 @@ const RequestResponse = () => {
   const [url, setUrl] = useState<string>("");
   const [responseBody, setResponseBody] = useState<any>(undefined);
   const [responseStatus, setResponseStatus] = useState<string>("");
-  const [requestType, setRequestType] = useState<string>("GET");
+  const [requestType, setRequestType] = useState<string>("get");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [requestBody, setRequestBody] = useState<any>(undefined);
 
   const { Option } = Select;
 
   const sendRequest = () => {
     setIsLoading(true);
-    axios
-      .post(
-        "http://localhost:3001/get",
-        {
+
+    let bodyToSend: any = {};
+    let urlAndHeaders: any = {};
+
+    switch (requestType) {
+      case "get":
+        urlAndHeaders = {
           url: protocol + url,
-        },
-        {
+        };
+        bodyToSend = {
+          ...urlAndHeaders,
+        };
+        break;
+      case "post":
+        urlAndHeaders = {
+          url: protocol + url,
           headers: {
             "Content-Type": "application/json",
           },
+        };
+        if (requestBody) {
+          bodyToSend = {
+            ...urlAndHeaders,
+            data: requestBody,
+          };
+        } else {
+          bodyToSend = {
+            ...urlAndHeaders,
+          };
         }
-      )
+        break;
+    }
+    axios
+      .post(`http://localhost:3001/${requestType.toLowerCase()}`, bodyToSend, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((res) => {
         setResponseBody(res.data);
         setResponseStatus(res.status + " " + res.statusText);
@@ -115,7 +142,7 @@ const RequestResponse = () => {
           height: "calc(100vh - 500px)",
         }}
       >
-        <Request />
+        <Request requestBody={requestBody} setRequestBody={setRequestBody} />
         <Response responseBody={responseBody} responseStatus={responseStatus} />
       </div>
     </div>
