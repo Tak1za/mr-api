@@ -33,7 +33,7 @@ const Content = () => {
 
   const remove = (targetKey: string) => {
     dispatch(removeTab(targetKey));
-    setActiveKey(`newTab${allTabs.length - 1}`);
+    setActiveKey(`newTab${allTabs.length - 2}`);
   };
 
   const onEdit = (
