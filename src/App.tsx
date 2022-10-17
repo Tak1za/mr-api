@@ -1,43 +1,16 @@
 import "./App.scss";
 import { Input } from "antd";
-import {
-  ContainerOutlined,
-  DesktopOutlined,
-  PieChartOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
-import Sidebar, { MenuItem } from "./components/Sidebar/Sidebar";
+import { SearchOutlined } from "@ant-design/icons";
+import Sidebar from "./components/Sidebar/Sidebar";
 import Content from "./components/Content/Content";
 
 function App() {
-  function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-    type?: "group"
-  ): MenuItem {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      type,
-    } as MenuItem;
-  }
-
-  const items: MenuItem[] = [
-    getItem("Option 1", "1", <PieChartOutlined />),
-    getItem("Option 2", "2", <DesktopOutlined />),
-    getItem("Option 3", "3", <ContainerOutlined />),
-  ];
-
   return (
     <div className="main">
       <div className="main-top">
         <div className="main-left">
           <div className="title">Mr. API</div>
-          <Sidebar items={items} />
+          <Sidebar />
         </div>
         <div className="main-right">
           <Content />

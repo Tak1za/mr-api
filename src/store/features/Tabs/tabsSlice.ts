@@ -65,7 +65,7 @@ export const tabsSlice = createSlice({
                 {
                     tabKey: `newTab${state.allTabs.length}`,
                     id: uuidv4(),
-                    name: "",
+                    name: "Untitled Request",
                     protocol: "http://",
                     url: "",
                     requestType: "get",
