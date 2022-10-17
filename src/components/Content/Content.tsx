@@ -1,52 +1,39 @@
 import "./Content.scss";
 import { Tabs } from "antd";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { DownOutlined, PlusOutlined } from "@ant-design/icons";
-import { Tab } from "rc-tabs/lib/interface";
 import RequestResponse from "../RequestResponse/RequestResponse";
 import RequestLabel from "../RequestLabel/RequestLabel";
-
-const initialItems: Tab[] = [];
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { addTab, removeTab } from "../../store/features/Tabs/tabsSlice";
 
 const Content = () => {
+  const dispatch = useDispatch();
   const [activeKey, setActiveKey] = useState("");
-  const [items, setItems] = useState(initialItems);
-  const newTabIndex = useRef(0);
+  const allTabs = useSelector((state: RootState) => state.tabs.allTabs);
+
+  const allItems = allTabs.map((_, index) => {
+    return {
+      label: <RequestLabel index={index} />,
+      children: <RequestResponse index={index} />,
+      key: `newTab${index}`,
+    };
+  });
 
   const onChange = (newActiveKey: string) => {
     setActiveKey(newActiveKey);
   };
 
   const add = () => {
-    const newActiveKey = `newTab${newTabIndex.current++}`;
-    const newPanes = [...items];
-    newPanes.push({
-      label: <RequestLabel />,
-      children: <RequestResponse />,
-      key: newActiveKey,
-    });
-    setItems(newPanes);
-    setActiveKey(newActiveKey);
+    dispatch(addTab());
+    setActiveKey(`newTab${allTabs.length}`);
   };
 
   const remove = (targetKey: string) => {
-    let newActiveKey = activeKey;
-    let lastIndex = -1;
-    items.forEach((item, i) => {
-      if (item.key === targetKey) {
-        lastIndex = i - 1;
-      }
-    });
-    const newPanes = items.filter((item) => item.key !== targetKey);
-    if (newPanes.length && newActiveKey === targetKey) {
-      if (lastIndex >= 0) {
-        newActiveKey = newPanes[lastIndex].key;
-      } else {
-        newActiveKey = newPanes[0].key;
-      }
-    }
-    setItems(newPanes);
-    setActiveKey(newActiveKey);
+    dispatch(removeTab(targetKey));
+    setActiveKey(`newTab${allTabs.length - 1}`);
   };
 
   const onEdit = (
@@ -74,7 +61,7 @@ const Content = () => {
         onChange={onChange}
         activeKey={activeKey}
         onEdit={onEdit}
-        items={items}
+        items={allItems}
         moreIcon={<DownOutlined />}
         addIcon={addMoreIcon}
       />

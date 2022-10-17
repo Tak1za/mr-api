@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import requestReducer from './features/Request/requestSlice';
-import responseReducer from './features/Response/responseSlice';
+import { logger } from "../middlewares/logger";
+import tabsReducer from './features/Tabs/tabsSlice';
 
 const store = configureStore({
     reducer: {
-        request: requestReducer,
-        response: responseReducer
-    }
+        tabs: tabsReducer,
+    },
+    middleware: [logger()]
 });
 
 export type RootState = ReturnType<typeof store.getState>;

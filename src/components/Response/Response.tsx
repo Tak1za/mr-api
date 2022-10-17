@@ -3,13 +3,15 @@ import ReactAce from "react-ace/lib/ace";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
-const Response = () => {
-  const responseStatus = useSelector(
-    (state: RootState) => state.response.responseStatus
-  );
-  const responseBody = useSelector(
-    (state: RootState) => state.response.responseBody
-  );
+interface IResponseProps {
+  index: number;
+}
+
+const Response = ({ index }: IResponseProps) => {
+  const allTabs = useSelector((state: RootState) => state.tabs.allTabs);
+  const responseStatus = allTabs[index].responseStatus;
+  const responseBody = allTabs[index].responseBody;
+
   return (
     <div className="response-editor-container">
       <div className="header">

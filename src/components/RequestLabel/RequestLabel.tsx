@@ -1,15 +1,30 @@
 import "./RequestLabel.scss";
 import { Input } from "antd";
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { setName } from "../../store/features/Tabs/tabsSlice";
 
-const RequestLabel = () => {
-  const [label, setLabel] = useState<string>("");
+interface IRequestLabelProps {
+  index: number;
+}
+
+const RequestLabel = ({ index }: IRequestLabelProps) => {
+  const dispatch = useDispatch();
+  const allTabs = useSelector((state: RootState) => state.tabs.allTabs);
   return (
     <div className="request-label">
       <Input
         placeholder="New"
-        value={label}
-        onChange={(e) => setLabel(e.target.value)}
+        value={allTabs[index].name}
+        onChange={(e) =>
+          dispatch(
+            setName({
+              index: index,
+              value: e.target.value,
+            })
+          )
+        }
         autoFocus
       />
     </div>

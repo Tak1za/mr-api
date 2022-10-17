@@ -5,38 +5,29 @@ import axios from "axios";
 import { Button, Input, Select } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import {
-  resetResponse,
   setIsLoading,
-  setResponseBody,
-  setResponseStatus,
-} from "../../store/features/Response/responseSlice";
-import {
-  resetRequest,
   setProtocol,
   setRequestType,
+  setResponseBody,
+  setResponseStatus,
   setUrl,
-} from "../../store/features/Request/requestSlice";
+} from "../../store/features/Tabs/tabsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
-import { useEffect } from "react";
 
-const RequestResponse = () => {
-  const { Option } = Select;
+interface IRequestResponseProps {
+  index: number;
+}
+
+const RequestResponse = ({ index }: IRequestResponseProps) => {
   const dispatch = useDispatch();
-  const protocol = useSelector((state: RootState) => state.request.protocol);
-  const url = useSelector((state: RootState) => state.request.url);
-  const requestType = useSelector(
-    (state: RootState) => state.request.requestType
-  );
-  const requestBody = useSelector(
-    (state: RootState) => state.request.requestBody
-  );
-  const isLoading = useSelector((state: RootState) => state.response.isLoading);
+  const allTabs = useSelector((state: RootState) => state.tabs.allTabs);
+  const protocol = allTabs[index].protocol;
+  const url = allTabs[index].url;
+  const requestType = allTabs[index].requestType;
+  const requestBody = allTabs[index].requestBody;
 
-  useEffect(() => {
-    dispatch(resetRequest());
-    dispatch(resetResponse());
-  }, [dispatch]);
+  const isLoading = useSelector((state: RootState) => state.tabs.isLoading);
 
   const sendRequest = () => {
     dispatch(setIsLoading(true));
@@ -79,20 +70,46 @@ const RequestResponse = () => {
         },
       })
       .then((res) => {
-        dispatch(setResponseBody(res.data));
-        dispatch(setResponseStatus(res.status + " " + res.statusText));
+        dispatch(
+          setResponseBody({
+            index: index,
+            value: res.data,
+          })
+        );
+        dispatch(
+          setResponseStatus({
+            index: index,
+            value: res.status + " " + res.statusText,
+          })
+        );
       })
       .catch((err) => {
         console.error(err);
         if (err.response.data.stdErr) {
-          dispatch(setResponseBody(null));
-          dispatch(setResponseStatus(err.response.data.stdErr));
-        } else {
-          dispatch(setResponseBody(err.response.data.apiErr));
           dispatch(
-            setResponseStatus(
-              err.response.status + " " + err.response.statusText
-            )
+            setResponseBody({
+              index: index,
+              value: null,
+            })
+          );
+          dispatch(
+            setResponseStatus({
+              index: index,
+              value: err.response.data.stdErr,
+            })
+          );
+        } else {
+          dispatch(
+            setResponseBody({
+              index: index,
+              value: err.response.data.apiErr,
+            })
+          );
+          dispatch(
+            setResponseStatus({
+              index: index,
+              value: err.response.status + " " + err.response.statusText,
+            })
           );
         }
       })
@@ -104,10 +121,12 @@ const RequestResponse = () => {
       defaultValue="http://"
       className="select-before"
       value={protocol}
-      onChange={(p: string) => dispatch(setProtocol(p))}
+      onChange={(p: string) =>
+        dispatch(setProtocol({ index: index, value: p }))
+      }
     >
-      <Option value="http://">http://</Option>
-      <Option value="https://">https://</Option>
+      <Select.Option value="http://">http://</Select.Option>
+      <Select.Option value="https://">https://</Select.Option>
     </Select>
   );
 
@@ -117,15 +136,25 @@ const RequestResponse = () => {
       if (clipboardData.startsWith("http")) {
         switch (clipboardData.substring(0, clipboardData.indexOf("://"))) {
           case "https":
-            dispatch(setProtocol("https://"));
+            dispatch(setProtocol({ index: index, value: "https://" }));
             dispatch(
-              setUrl(clipboardData.substring(clipboardData.indexOf("://") + 3))
+              setUrl({
+                index: index,
+                value: clipboardData.substring(
+                  clipboardData.indexOf("://") + 3
+                ),
+              })
             );
             break;
           case "http":
-            dispatch(setProtocol("http://"));
+            dispatch(setProtocol({ index: index, value: "http://" }));
             dispatch(
-              setUrl(clipboardData.substring(clipboardData.indexOf("://") + 3))
+              setUrl({
+                index: index,
+                value: clipboardData.substring(
+                  clipboardData.indexOf("://") + 3
+                ),
+              })
             );
             break;
           default:
@@ -147,21 +176,35 @@ const RequestResponse = () => {
       <Input.Group compact style={{ display: "flex" }}>
         <Select
           defaultValue="get"
-          onChange={(value: string) => dispatch(setRequestType(value))}
+          onChange={(value: string) =>
+            dispatch(
+              setRequestType({
+                index: index,
+                value: value,
+              })
+            )
+          }
           value={requestType}
           style={{ width: "100px" }}
         >
-          <Option value="get">GET</Option>
-          <Option value="post">POST</Option>
-          <Option value="put">PUT</Option>
-          <Option value="delete">DELETE</Option>
+          <Select.Option value="get">GET</Select.Option>
+          <Select.Option value="post">POST</Select.Option>
+          <Select.Option value="put">PUT</Select.Option>
+          <Select.Option value="delete">DELETE</Select.Option>
         </Select>
         <Input
           addonBefore={selectBefore}
           onPaste={onPaste}
           onCopy={onCopy}
           value={url}
-          onChange={(e) => dispatch(setUrl(e.target.value))}
+          onChange={(e) =>
+            dispatch(
+              setUrl({
+                index: index,
+                value: e.target.value,
+              })
+            )
+          }
           autoFocus
         />
         <Button
@@ -182,8 +225,8 @@ const RequestResponse = () => {
           height: "calc(100vh - 500px)",
         }}
       >
-        <Request />
-        <Response />
+        <Request index={index} />
+        <Response index={index} />
       </div>
     </div>
   );
