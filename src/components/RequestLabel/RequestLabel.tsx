@@ -12,11 +12,12 @@ interface IRequestLabelProps {
 const RequestLabel = ({ index }: IRequestLabelProps) => {
   const dispatch = useDispatch();
   const allTabs = useSelector((state: RootState) => state.tabs.allTabs);
+  const name = allTabs[index].name;
   return (
     <div className="request-label">
       <Input
-        placeholder="New"
-        value={allTabs[index].name}
+        value={name}
+        onKeyDown={(e) => e.stopPropagation()}
         onChange={(e) =>
           dispatch(
             setName({
@@ -25,7 +26,6 @@ const RequestLabel = ({ index }: IRequestLabelProps) => {
             })
           )
         }
-        autoFocus
       />
     </div>
   );
