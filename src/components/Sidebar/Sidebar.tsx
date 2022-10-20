@@ -27,7 +27,11 @@ const Sidebar = () => {
   allCollections.push(collection1);
   return (
     <div className="sidebar">
-      <Menu mode="inline" items={allCollections} />
+      <Menu
+        mode="inline"
+        items={allTabs.length === 0 ? [] : allCollections}
+        defaultOpenKeys={["collection1"]}
+      />
     </div>
   );
 };
