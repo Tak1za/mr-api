@@ -19,10 +19,15 @@ function getItem(
 
 const Sidebar = () => {
   const allTabs = useSelector((state: RootState) => state.tabs.allTabs);
-  const allItems = allTabs.map((t) => getItem(t.name, t.id, [])).reverse();
+  let allCollections: MenuItem[] = [];
+  const allItems = allTabs
+    .map((t) => getItem(t.name, t.id, undefined))
+    .reverse();
+  let collection1 = getItem("New Collection", "collection1", allItems);
+  allCollections.push(collection1);
   return (
     <div className="sidebar">
-      <Menu mode="inline" items={allItems} />
+      <Menu mode="inline" items={allCollections} />
     </div>
   );
 };
