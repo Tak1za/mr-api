@@ -16,7 +16,13 @@ expressApp.listen(PORT, () => {
 });
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ minWidth: 1366, minHeight: 768 });
+  mainWindow = new BrowserWindow({
+    minWidth: 1366,
+    minHeight: 768,
+    vibrancy: "under-window",
+    visualEffectState: "followWindow",
+    backgroundColor: "#00000000",
+  });
   mainWindow.maximize();
   mainWindow.show();
   mainWindow.loadURL(
@@ -24,11 +30,14 @@ function createWindow() {
       ? "http://localhost:3000"
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
-  mainWindow.webContents.openDevTools();
   mainWindow.on("closed", () => (mainWindow = null));
 }
 
-app.on("ready", createWindow);
+app.on("ready", function () {
+  setTimeout(function () {
+    createWindow();
+  }, 10);
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {

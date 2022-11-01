@@ -4,14 +4,13 @@
  */
 @import "~antd/dist/antd.css";
 body {
-  position: relative;
-  color: white;
   height: 100vh;
   width: 100vw;
-  background: white;
   font-family: sans-serif;
   overflow-y: hidden;
   display: flex;
+  color: black;
+  background-color: transparent;
 }
 
 li {
@@ -34,7 +33,20 @@ a:hover {
   display: flex;
   height: 100%;
   width: 100%;
-  flex-direction: column;
+  flex-direction: row;
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+
+    .main-container {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+    }
+  }
 
   .main-top {
     height: calc(100% - 30px);

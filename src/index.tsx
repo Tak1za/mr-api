@@ -3,9 +3,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "ace-builds/webpack-resolver";
-import "ace-builds/src-noconflict/ext-language_tools";
-import "ace-builds/src-noconflict/mode-json";
+// import "ace-builds/webpack-resolver";
+// import "ace-builds/src-noconflict/ext-language_tools";
+// import "ace-builds/src-noconflict/mode-json";
 import { Provider } from "react-redux";
 import store from "./store/store";
 

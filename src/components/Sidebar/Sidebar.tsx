@@ -27,6 +27,7 @@ const Sidebar = () => {
   allCollections.push(collection1);
   return (
     <div className="sidebar">
+      <div className="header">Mr. API</div>
       <Menu
         mode="inline"
         items={allTabs.length === 0 ? [] : allCollections}

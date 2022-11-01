@@ -1,13 +1,21 @@
 import "./App.scss";
-import { Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import Container from "./components/Container/Container";
+import Middle from "./components/Middle/Middle";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Content from "./components/Content/Content";
+import Topbar from "./components/Topbar/Topbar";
 
 function App() {
   return (
     <div className="main">
-      <div className="main-top">
+      <Sidebar />
+      <div className="main-content">
+        <Topbar />
+        <div className="main-container">
+          <Middle />
+          <Container />
+        </div>
+      </div>
+      {/* <div className="main-top">
         <div className="main-left">
           <div className="title">Mr. API</div>
           <Sidebar />
@@ -18,7 +26,7 @@ function App() {
       </div>
       <div className="main-bottom">
         <Input placeholder="Search..." prefix={<SearchOutlined />} />
-      </div>
+      </div> */}
     </div>
   );
 }
